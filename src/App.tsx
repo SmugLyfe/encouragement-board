@@ -6,9 +6,18 @@ import firebase from './firebase';
 
 const db = firebase.firestore();
 
-class App extends React.Component {
+interface IProps {
 
-  constructor(props) {
+}
+
+interface IState {
+  users: Array<Object>;
+  loading: boolean;
+}
+
+class App extends React.Component<IProps, IState> {
+
+  constructor(props:any) {
     super(props);
     this.state = {
       users: [],
@@ -21,7 +30,7 @@ class App extends React.Component {
       .then((snapshot) => {
         const fbUsers = snapshot.docs.map(doc => doc.data());
         this.setState({
-          loading:false,
+          loading: false,
           users: fbUsers
         });
       });
@@ -33,7 +42,7 @@ class App extends React.Component {
         <div>HSF Encouragement Board</div>
         {this.state.loading ? <div>Loading</div> :
           <ul>
-            {this.state.users.map((user, i) => (
+            {this.state.users.map((user: any, i: number) => (
               <li key={i}>
                 Hello {user.name}
               </li>
