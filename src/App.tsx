@@ -59,7 +59,27 @@ function SignIn() {
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    auth.signInWithPopup(provider)
+      .then(async (result) => {
+        if (result.user != null) {
+          const u = await db.collection('users')
+            .where("email", "==", result.user.email)
+            .get();
+          // console.log(u.docs);
+          // make a new user if there is no user existing
+          if (u.empty) {
+            db.collection('users').add({
+              name: result.user.displayName,
+              email: result.user.email,
+              notesReceived: 0,
+              notesWritten: 0
+            })
+            .then(() => {
+              console.log('New user added!');
+            });
+          }
+        }
+      });
   }
 
   return (
