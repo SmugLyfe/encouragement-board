@@ -6,12 +6,14 @@
 .pnp.js
 src/firebaseConfig.js
 package-lock.json
+.env
 
 # testing
 /coverage
 
 # production
 /build
+.firebase
 
 # misc
 .DS_Store
