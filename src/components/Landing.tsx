@@ -2,6 +2,8 @@ import './Landing.css';
 import React, { useRef, useState } from 'react';
 // import { ExitToApp } from '@material-ui/icons';
 
+import allin from '../images/all-in-logo.png';
+
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -22,7 +24,8 @@ function Landing (props: any) {
         </div>
       )
       : (
-        <div>
+        <div className="landing-container">
+          <img className="landing-logo" src={allin} />
           <div className="welcome-banner">
             <h1>HSF Winter Retreat 2021</h1>
             <h1 className="theme">All In</h1>

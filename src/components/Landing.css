@@ -3,6 +3,15 @@
   margin-left: 60px;
 }
 
+.landing-logo {
+  position: absolute;
+  height: 600px;
+  top: 80px;
+  z-index: -1;
+  right: 20px;
+  opacity: .1;
+}
+
 h1 {
   font-size: 64px;
 }
@@ -56,4 +65,31 @@ h3 {
 
 .sign-in:hover, .sign-out:hover {
   opacity: .7;
+}
+
+@media (max-width: 600px) {
+  .landing-logo {
+    position: static;
+    height: 300px;
+    opacity: .8;
+  }
+
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome-banner {
+    text-align: center;
+    margin-left: 0;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
 }

@@ -56,7 +56,7 @@ function App() {
         hideMessages={() => setUser('')}
       />
       }
-      { (showMessages) &&
+      { (showMessages && user) &&
         <Messages uid={user.uid} />
       }
     </div>
