@@ -1,5 +1,5 @@
 // import './Messages.css';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import firebase from 'firebase/app';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -21,9 +21,9 @@ function Messages(props: any) {
     else {
       return (
         <div>
-          {letters.map((l:any) => (
+          {letters.map((l:any, i:number) => (
             <div>
-              <p>{l.text}</p>
+              <p>{l.text[0]}</p>
               <p>Sent by: {l.displayName}</p>
             </div>
           ))}
