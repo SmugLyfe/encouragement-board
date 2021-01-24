@@ -113,7 +113,7 @@ function NewMessage (props: any) {
     // check to see if a message has already been sent
     if (msgs && msgs.length != 0) {
       msgs.map((msg:any) => {
-        if (msg.displayName == props.user.displayName) {
+        if (msg.uid == props.user.uid) {
           setSentMsg(msg);
         }
       });
