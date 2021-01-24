@@ -1,3 +1,21 @@
+.new-message {
+  position: absolute;
+  top: 10vh;
+  left: 10vw;
+  width: 60vw;
+  height: 80vh;
+  background-color: #fafafa;
+  border-radius: 20px;
+
+  padding: 10px 10vw;
+
+  overflow-y: auto;
+  background-size: 20px 20px;
+  background-image:
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -5,15 +23,87 @@ form {
   justify-content: center;
 }
 
+em {
+  color: blue;
+  font-style: normal;
+}
+
 .close {
-  align-self: flex-start;
-  margin-left: 12vw;
-  margin-top: 30px;
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  height: 24px;
+  width: 24px;
+  background-color: #696969;
+  border: none;
+  border-radius: 12px;
+  color: white;
+}
+
+.close:hover {
+  background-color: black;
+}
+
+button:hover {
+  opacity: .7;
 }
 
 textarea {
-  height: 20vh;
-  width: 60vw;
+  height: 100px;
+  min-width: 60vw;
+  max-width: 60vw;
+  border: none;
+  margin: 20px 0;
+}
 
-  margin: 20px;
+.button-row {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+select {
+  border-color: #f0f0f0;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.submit {
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: blue;
+  font-weight: 700;
+  border: none;
+}
+
+.submit:disabled {
+  opacity: .2;
+}
+
+.past-messages__text-row {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.delete {
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  height: 24px;
+  width: 24px;
+  margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+  .new-message {
+    padding: 40px 20px;
+    left: 5vw;
+  }
 }

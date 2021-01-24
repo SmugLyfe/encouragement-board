@@ -1,6 +1,9 @@
 import './NewMessage.css';
+import './Messages.css';
 import React, { useRef, useState, useEffect } from 'react';
 import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
+
+import { CircularProgress } from '@material-ui/core';
 
 import firebase from 'firebase/app';
 const db = firebase.firestore();
@@ -17,7 +20,7 @@ export interface MessageType {
 function NewMessage (props: any) {
 
   const [formValue, setFormValue] = useState('');
-  const [alreadySent, setSent] = useState(false);
+  const [formStyle, setFormStyle] = useState('text');
   const suRef = db.collection('users').doc(props.selectedUser);
   const messagesRef = suRef.collection('messages');
   const [selected, loading] = useDocumentData<any>(suRef);
@@ -30,14 +33,17 @@ function NewMessage (props: any) {
     const { uid, photoURL, displayName } = props.user;
     const text = {
       message: formValue,
-      style: 'text',
+      style: formStyle,
     };
 
+    let msg;
 
     if (sentMsg) {
       await messagesRef.doc(sentMsg.id).update({
         text: firebase.firestore.FieldValue.arrayUnion(text),
       });
+
+      msg = await messagesRef.doc(sentMsg.id).get();
     }
     else {
       await messagesRef.add({
@@ -46,18 +52,61 @@ function NewMessage (props: any) {
         uid,
         displayName,
         photoURL
-      }).then((newDoc) => {
+      }).then(async (newDoc) => {
         messagesRef.doc(newDoc.id).update({
           id: newDoc.id,
         });
+
+        msg = await messagesRef.doc(newDoc.id).get();
       });
     }
-
+    if (msg) {
+      checkMessage(msg.data());
+    }
     setFormValue('');
   }
 
-  const deleteMessage = async (e:any) => {
+  const deleteMessage = async ( message:any ) => {
+    if (sentMsg) {
+      await messagesRef.doc(sentMsg.id).update({
+        text: firebase.firestore.FieldValue.arrayRemove(message),
+      });
 
+      const msg = await messagesRef.doc(sentMsg.id).get();
+      checkMessage(msg.data());
+    }
+  }
+
+  const checkMessage = (msg: any) => {
+
+    const m = msg;
+
+    const setMsg = {
+      uid : m?.uid,
+      id: m?.id,
+      photoURL: m?.photoURL,
+      createdAt: m?.createdAt,
+      text: m?.text,
+      displayName: m?.displayName,
+    };
+    setSentMsg(setMsg);
+  }
+
+  const PastMessages = () => {
+    if (sentMsg) {
+      return (
+        <div>
+          {sentMsg.text.map((m:any, i:number) => (
+            <div className="past-messages__text-row">
+              <button className="delete" onClick={() => deleteMessage(m)}>x</button>
+              <p key={i} className={m.style}>{m.message}</p>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   useEffect(() => {
@@ -65,33 +114,39 @@ function NewMessage (props: any) {
     if (msgs && msgs.length != 0) {
       msgs.map((msg:any) => {
         if (msg.displayName == props.user.displayName) {
-          setSent(true);
           setSentMsg(msg);
         }
       });
     }
-  }, [msgLoading]);
+    //console.log('use 3 effect');
+  }, [msgLoading, sentMsg]);
 
   return (
     (!loading && !msgLoading) ?
-      ((alreadySent && sentMsg) ?
-          <div>
-            <p>Your message to {selected.name}</p>
-            {sentMsg.text.map((m:any, i:number) => (
-              <p key={i} className={m.style}>{m.message}</p>
-            ))}
-          </div>
-      :
+      <div className="new-message">
+        <h3>Your message to <em>{selected.name}</em></h3>
+        <PastMessages />
+
         <form onSubmit={sendMessage}>
           <button className="close" onClick={props.hideMessages}>x</button>
-          <p>Message to {selected.name}</p>
-          <textarea value={formValue}
+          <textarea className={formStyle} value={formValue}
             onChange={(e) => {
               setFormValue(e.target.value)}}
             placeholder="say something nice" />
-          <button type="submit" disabled={!formValue}>🕊️</button>
-        </form> )
-    : <div></div>
+          <div className="button-row">
+            <select value={formStyle}
+              onChange={(e) => {
+                setFormStyle(e.target.value)}}>
+              <option value="text">Normal</option>
+              <option value="bold">Bold</option>
+              <option value="italic">Italic</option>
+              <option value="van">Vanessa Loud</option>
+            </select>
+            <button className="submit" type="submit" disabled={!formValue}>Send it!</button>
+          </div>
+        </form>
+      </div>
+    : <div><CircularProgress /></div>
   );
 }
 

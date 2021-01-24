@@ -1,6 +1,5 @@
 import './Landing.css';
-import React, { useRef, useState } from 'react';
-// import { ExitToApp } from '@material-ui/icons';
+import React, { useState } from 'react';
 
 import allin from '../images/all-in-logo.png';
 
@@ -14,6 +13,9 @@ const auth = firebase.auth();
 function Landing (props: any) {
 
   const user = props.user;
+  const [firstLogin, setFirstLogin] = useState(false);
+
+  // TO DO: Make a tutorial on first login
 
   return (
     user
@@ -60,7 +62,7 @@ function Landing (props: any) {
                 notesWritten: 0
               })
               .then(() => {
-                console.log('New user added!');
+                setFirstLogin(true);
               });
             }
           }

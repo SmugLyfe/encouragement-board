@@ -22,10 +22,13 @@ function Messages(props: any) {
       return (
         <div>
           {letters.map((l:any, i:number) => (
-            <div>
-              <p>{l.text[0]}</p>
-              <p>Sent by: {l.displayName}</p>
-            </div>
+            (l.text.length !== 0) &&
+              <div>
+                {l.text.map((block: any) => (
+                  <p className={block.style}>{block.message}</p>
+                ))}
+                <p>Sent by: {l.displayName}</p>
+              </div>
           ))}
         </div>
       );
