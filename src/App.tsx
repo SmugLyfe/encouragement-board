@@ -34,7 +34,13 @@ function App() {
           <div className="encouragement-board">
             {users.map((u: any, i: number) => (
               <div className="user">
-                <button className="envelope" key={i} onClick={()=> {
+                <button className="envelope" key={i}
+                  style = {{
+                    backgroundImage: `url(${u?.envelopeURL})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                  }}
+                  onClick={()=> {
                   if (selectedUser && selectedUser === u.uid) {
                     // double click on same user
                     setUser('');
@@ -51,7 +57,9 @@ function App() {
                   }
                 }}>
                 </button>
-                {u.name}
+                <p>
+                {u.name} {(user.uid === u.uid) && <b>(me)</b>}
+                </p>
               </div>
             ))}
           </div>

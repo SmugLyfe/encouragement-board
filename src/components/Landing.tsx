@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storageRef = firebase.storage().ref();
 
 function Landing (props: any) {
 
@@ -22,7 +23,10 @@ function Landing (props: any) {
       ? (
         <div className="nav">
           <p>{user.displayName}</p>
-          <SignOut />
+          <div className="nav__button-group">
+            <ChangeImage />
+            <SignOut />
+          </div>
         </div>
       )
       : (
@@ -40,6 +44,46 @@ function Landing (props: any) {
         </div>
       )
   );
+
+  function ChangeImage() {
+    const userRef = db.collection('users').doc(user.uid);
+    const [envelopeImage, setEnvImg] = useState<Blob>();
+    const [showForm, setShowForm] = useState(false);
+
+    const addImage = async (e:any) => {
+      e.preventDefault();
+
+      const photoRef = storageRef.child(`envelopes/${user.uid}.jpg`);
+
+      if (envelopeImage) {
+        await photoRef.put(envelopeImage).then((snapshot) => {
+          // console.log(snapshot);
+          setShowForm(false);
+        });
+        photoRef.getDownloadURL().then((url) => {
+          userRef.update({
+            envelopeURL: url
+          })
+        });
+      }
+    }
+
+    return (
+      showForm ?
+      <form onSubmit={addImage}>
+        <input type="file"
+          onChange={(e) => {
+            if (e && e.target && e.target.files) {
+            setEnvImg(e.target.files[0]);}
+          }} />
+        <button type="submit">Submit</button>
+      </form> :
+      <button className="decorate" onClick={() => setShowForm(true)}>
+        Decorate Envelope
+      </button>
+    )
+
+  }
 
   function SignIn() {
 

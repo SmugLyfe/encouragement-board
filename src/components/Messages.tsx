@@ -4,11 +4,30 @@ import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 const db = firebase.firestore();
+const storageRef = firebase.storage().ref();
 
 function Messages(props: any) {
-  const letterRef = db.collection('users')
-                      .doc(props.uid).collection('messages');
+  const userRef = db.collection('users').doc(props.uid);
+  const letterRef = userRef.collection('messages');
   const [letters] = useCollectionData(letterRef);
+  const [envelopeImage, setEnvImg] = useState<Blob>();
+
+  const addImage = async (e:any) => {
+    e.preventDefault();
+
+    const photoRef = storageRef.child(`envelopes/${props.uid}.jpg`);
+
+    if (envelopeImage) {
+      await photoRef.put(envelopeImage).then((snapshot) => {
+        console.log(snapshot);
+      });
+      photoRef.getDownloadURL().then((url) => {
+        userRef.update({
+          envelopeURL: url
+        })
+      });
+    }
+  };
 
   if (letters) {
     if (letters.length == 0) {

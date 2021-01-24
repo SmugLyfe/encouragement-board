@@ -17,7 +17,8 @@ h1 {
 }
 
 .theme {
-  color: #FF1493;
+  color: #696969;
+  font-size: 96px;
   margin: -20px 0 0;
 }
 
@@ -35,6 +36,12 @@ h3 {
   right: 20px;
 }
 
+.nav__button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .nav p {
   margin-right: 40px;
   font-size: 20px;
@@ -42,10 +49,16 @@ h3 {
   font-weight: 700;
 }
 
+.nav button {
+  height: 60px;
+}
+
 .sign-in {
   padding: 20px;
   border-radius: 8px;
   border-style: none;
+  background-color: #294165;
+  color: white;
 
   font-size: 24px;
   font-weight: 700;
@@ -58,6 +71,18 @@ h3 {
 
   background-color: red;
   color: white;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.decorate {
+  padding: 0px 20px;
+  border-radius: 8px;
+  border-style: none;
+
+  background-color: #f0f0f0;
+  margin-right: 20px;
 
   font-size: 16px;
   font-weight: 700;
@@ -89,7 +114,27 @@ h3 {
     font-size: 40px;
   }
 
+  .theme {
+    font-size: 64px;
+  }
+
   h3 {
     font-size: 24px;
+  }
+
+  .nav p {
+    margin-right: 12px;
+  }
+
+  .nav button {
+    height: 60px;
+    font-size: 12px;
+  }
+
+  .nav {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    right: 0px
   }
 }

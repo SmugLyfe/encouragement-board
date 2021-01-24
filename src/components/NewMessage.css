@@ -105,5 +105,6 @@ select {
   .new-message {
     padding: 40px 20px;
     left: 5vw;
+    width: 80vw;
   }
 }
