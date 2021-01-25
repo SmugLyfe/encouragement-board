@@ -39,6 +39,7 @@ function NewMessage (props: any) {
     let msg;
 
     if (sentMsg) {
+      // if a message already exists, then add more text
       await messagesRef.doc(sentMsg.id).update({
         text: firebase.firestore.FieldValue.arrayUnion(text),
       });
@@ -46,6 +47,7 @@ function NewMessage (props: any) {
       msg = await messagesRef.doc(sentMsg.id).get();
     }
     else {
+      // if a message does not exist, create the message
       await messagesRef.add({
         text: [text],
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -53,8 +55,17 @@ function NewMessage (props: any) {
         displayName,
         photoURL
       }).then(async (newDoc) => {
+        // add the message id to the message
         messagesRef.doc(newDoc.id).update({
           id: newDoc.id,
+        });
+        // increment notes received from the selected user
+        suRef.update({
+          notesReceived: firebase.firestore.FieldValue.increment(1),
+        });
+        // increment notes sent from the sending user
+        db.collection('users').doc(uid).update({
+          notesWritten: firebase.firestore.FieldValue.increment(1),
         });
 
         msg = await messagesRef.doc(newDoc.id).get();

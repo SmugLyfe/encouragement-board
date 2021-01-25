@@ -2,6 +2,7 @@ import './Landing.css';
 import React, { useState } from 'react';
 
 import allin from '../images/all-in-logo.png';
+import landing from '../images/landing.png';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
