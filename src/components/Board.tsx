@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import envelope0 from '../images/envelope_0.png';
 import envelope1 from '../images/envelope_1.png';
 import envelope2 from '../images/envelope_2.png';
+import wb_b from '../images/whiteboard_bottom.png';
+import wb_m from '../images/whiteboard_mid.png';
+import wb_t from '../images/whiteboard_top.png';
 
 function Board (props:any) {
 
@@ -26,6 +29,12 @@ function Board (props:any) {
 
   return (
     <div className="encouragement-board">
+      <img src={wb_t} className="wb-top" />
+      <div style={{
+        backgroundImage: `url(${wb_m})`,
+        backgroundRepeat: 'repeat-y',
+        backgroundPosition: 'center',
+      }} className="wb-mid" />
       {props.users.map((u: any, i: number) => (
         <div className="user">
           {(u.notesReceived > 5 && u.notesWritten > 5) &&
@@ -53,6 +62,7 @@ function Board (props:any) {
           </p>
         </div>
       ))}
+      <img src={wb_b} className="wb-bottom" />
     </div>
   );
 }
