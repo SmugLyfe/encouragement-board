@@ -16,6 +16,10 @@
     linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
 }
 
+.new-message h3 {
+  font-size: 40px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -42,6 +46,12 @@ em {
 
 .close:hover {
   background-color: black;
+}
+
+.x {
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
 }
 
 button:hover {
@@ -106,5 +116,7 @@ select {
     padding: 40px 20px;
     left: 5vw;
     width: 80vw;
+    top: 10vh;
+    height: 72vh;
   }
 }

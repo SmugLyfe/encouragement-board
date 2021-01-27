@@ -34,13 +34,19 @@ function App() {
         {(users && user) &&
           <Board user={user} users={users}
             showMessages={showMessages} selectedUser={selectedUser}
-            hideMessages={(s: any) => setUser(s)}
+            hideMessages={(s: any) => {
+              setUser(s);
+              document.body.style.overflow = 'hidden';
+            }}
             userMessages={() => setShowMessages(!showMessages)}
           />
         }
         {(selectedUser) &&
           <NewMessage user={user} selectedUser={selectedUser}
-            hideMessages={() => setUser('')}
+            hideMessages={() => {
+              setUser('');
+              document.body.style.overflow = 'unset';
+            }}
           />
         }
         {(showMessages && user) &&

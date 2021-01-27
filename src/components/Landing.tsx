@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 import allin from '../images/all-in-logo.png';
 import landing from '../images/landing.png';
+import envelope1 from '../images/envelope_1.png';
+import envelope2 from '../images/envelope_2.png';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -17,17 +19,20 @@ function Landing (props: any) {
   const user = props.user;
   const [firstLogin, setFirstLogin] = useState(false);
 
-  // TO DO: Make a tutorial on first login
-
   return (
     user
       ? (
-        <div className="nav">
-          <p>{user.displayName}</p>
-          <div className="nav__button-group">
-            <ChangeImage />
-            <SignOut />
-          </div>
+        <div>
+          { firstLogin ?
+            <Tutorial /> :
+            <div className="nav">
+              <p>{user.displayName}</p>
+              <div className="nav__button-group">
+                <ChangeImage />
+                <SignOut />
+              </div>
+            </div>
+          }
         </div>
       )
       : (
@@ -45,6 +50,57 @@ function Landing (props: any) {
         </div>
       )
   );
+
+  function Tutorial() {
+    return (
+      <div className="tutorial">
+        <div className="tutorial-row">
+          <div className="left">
+            <h1>
+              Welcome, {user.displayName}!
+            </h1>
+            <h3>
+              We are so happy you are here!
+            </h3>
+          </div>
+          <img className="tutorial-logo" src={allin} />
+        </div>
+        <div className="tutorial-row">
+          <img className="left-img" src={envelope1} />
+          <div className="right">
+            <p>
+              Encouragement notes are some of our favorite
+              parts about Winter Retreat, so we made a virtual version for you!
+            </p>
+            <b>
+              Here are some tips about how to use this website:
+            </b>
+          </div>
+        </div>
+        <div className="tutorial-row">
+          <div className="left">
+            <ol>
+              <li>
+                Click on an envelope to start writing a message!
+              </li>
+              <li>
+                You can write multiple lines/entries in a single letter, so feel
+                free to get creative and encouraging!
+              </li>
+              <li>
+                On the last day of retreat, you'll be able to see all the
+                letters that have been written to you!
+              </li>
+            </ol>
+          </div>
+          <img className="right-img" src={envelope2} />
+        </div>
+        <button className="sign-in" onClick={()=>setFirstLogin(false)}>
+          Let's get started!
+        </button>
+      </div>
+    )
+  }
 
   function ChangeImage() {
     const userRef = db.collection('users').doc(user.uid);
@@ -83,7 +139,6 @@ function Landing (props: any) {
         Decorate Envelope
       </button>
     )
-
   }
 
   function SignIn() {
@@ -119,7 +174,6 @@ function Landing (props: any) {
         <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
       </div>
     )
-
   }
 
   function SignOut() {

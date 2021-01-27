@@ -3,6 +3,90 @@
   margin-left: 60px;
 }
 
+.tutorial {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 10vw;
+
+  position: fixed;
+  top: 100px;
+  left: 10vw;
+  right: 10vw;
+  bottom: 100px;
+  z-index: 2;
+
+  overflow-y: auto;
+
+  background-size: 20px 20px;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f0f0f0;
+  background-color: #e0e0e0;
+  background-image:
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+}
+
+.tutorial-row {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.left {
+  text-align: left;
+  max-width: 400px;
+}
+
+.right {
+  margin-left: auto;
+  text-align: right;
+  max-width: 400px;
+}
+
+.tutorial-logo {
+  opacity: .8;
+  margin-left: 20px;
+  transform: rotate(8deg);
+}
+
+.tutorial button {
+  margin: 40px 0;
+}
+
+.tutorial p {
+  line-height: 24px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.tutorial li {
+  line-height: 32px;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.tutorial img {
+  max-width: 200px;
+  width: auto;
+  height: auto;
+}
+
+.left-img {
+  transform: rotate(-4deg);
+  margin-bottom: 20px;
+}
+
+.right-img {
+  max-height: 140px;
+  transform: rotate(2deg);
+}
+
 .landing-container {
   background: url('../images/landing.png');
   background-position: center;
@@ -17,7 +101,7 @@
   display: none;
 }
 
-h1 {
+.welcome-banner h1 {
   font-size: 44px;
 }
 
@@ -27,7 +111,7 @@ h1 {
   margin: -20px 0 ;
 }
 
-h3 {
+.welcome-banner h3 {
   font-size: 48px;
 }
 
@@ -95,6 +179,17 @@ h3 {
 
 .sign-in:hover, .sign-out:hover {
   opacity: .7;
+}
+
+@media (max-width: 800px) {
+  .tutorial-row {
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .tutorial {
+    padding: 20px 10vw;
+  }
 }
 
 @media (max-width: 600px) {

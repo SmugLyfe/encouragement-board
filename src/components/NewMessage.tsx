@@ -109,7 +109,7 @@ function NewMessage (props: any) {
         <div>
           {sentMsg.text.map((m:any, i:number) => (
             <div className="past-messages__text-row">
-              <button className="delete" onClick={() => deleteMessage(m)}>x</button>
+              <button className="delete x" onClick={() => deleteMessage(m)}>x</button>
               <p key={i} className={m.style}>{m.message}</p>
             </div>
           ))}
@@ -139,7 +139,7 @@ function NewMessage (props: any) {
         <PastMessages />
 
         <form onSubmit={sendMessage}>
-          <button className="close" onClick={props.hideMessages}>x</button>
+          <button className="close x" onClick={props.hideMessages}>x</button>
           <textarea className={formStyle} value={formValue}
             onChange={(e) => {
               setFormValue(e.target.value)}}
