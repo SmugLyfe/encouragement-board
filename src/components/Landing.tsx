@@ -127,13 +127,14 @@ function Landing (props: any) {
 
     return (
       showForm ?
-      <form onSubmit={addImage}>
-        <input type="file"
+      <form className="decorate-form" onSubmit={addImage}>
+        <input type="file" id="file"
           onChange={(e) => {
             if (e && e.target && e.target.files) {
             setEnvImg(e.target.files[0]);}
           }} />
-        <button type="submit">Submit</button>
+        <label htmlFor="file">Choose an image/gif</label>
+        <button disabled={!envelopeImage} type="submit">Submit</button>
       </form> :
       <button className="decorate" onClick={() => setShowForm(true)}>
         Decorate Envelope

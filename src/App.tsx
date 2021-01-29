@@ -33,12 +33,15 @@ function App() {
         <Landing user={user} />
         {(users && user) &&
           <Board user={user} users={users}
-            showMessages={showMessages} selectedUser={selectedUser}
+            selectedUser={selectedUser}
             hideMessages={(s: any) => {
               setUser(s);
               document.body.style.overflow = 'hidden';
             }}
-            userMessages={() => setShowMessages(!showMessages)}
+            showMessages={showMessages}
+            userMessages={() => {
+              setShowMessages(!showMessages);
+            }}
           />
         }
         {(selectedUser) &&
@@ -50,7 +53,12 @@ function App() {
           />
         }
         {(showMessages && user) &&
-          <Messages uid={user.uid} />
+          <Messages uid={user.uid}
+            hideMessages={() => {
+              setShowMessages(false);
+              document.body.style.overflow = 'unset';
+            }}
+          />
         }
       </div>
     );

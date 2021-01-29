@@ -14,3 +14,58 @@
   font-size: 40px;
   font-weight: 500;
 }
+
+.message-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  background-size: 20px 20px;
+  background-image:
+    linear-gradient(to right, #fff 1px, transparent 1px),
+    linear-gradient(to bottom, #fff 1px, transparent 1px);
+  padding: 40px 40px 60px;
+}
+
+.pre-message-modal {
+  position: fixed;
+  top: 30vh;
+  left: 10vw;
+  max-height: 40vh;
+  max-width: 40vw;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-size: 20px 20px;
+  background-image:
+    linear-gradient(to right, #fff 1px, transparent 1px),
+    linear-gradient(to bottom, #fff 1px, transparent 1px);
+  padding: 40px 40px 60px;
+  border-radius: 40px;
+}
+
+.pre-message-modal p {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.encouragement-letter {
+  max-width: 60vw;
+  background-color: white;
+  margin: 20px;
+  padding: 40px 60px;
+  border-radius: 20px;
+}
+
+.encouragement-letter p {
+  text-align: left;
+}
