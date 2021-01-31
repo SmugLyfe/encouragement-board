@@ -15,6 +15,27 @@
   font-weight: 500;
 }
 
+.message-container button {
+  position: fixed;
+  z-index: 2;
+}
+
+.print-button {
+  top: 80px;
+  left: 20px;
+}
+
+@media print {
+  html, body {
+    height: initial !important;
+    overflow: initial !important;
+  }
+}
+
+@page {
+  size: auto;
+}
+
 .message-modal {
   position: fixed;
   top: 0;
@@ -24,7 +45,7 @@
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
   background-size: 20px 20px;
@@ -32,6 +53,13 @@
     linear-gradient(to right, #fff 1px, transparent 1px),
     linear-gradient(to bottom, #fff 1px, transparent 1px);
   padding: 40px 40px 60px;
+}
+
+.message-bg {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .pre-message-modal {
