@@ -22,7 +22,7 @@ function NewMessage (props: any) {
 
   const [formValue, setFormValue] = useState('');
   const [formStyle, setFormStyle] = useState('text');
-  const [formClass, setFormClass] = useState('');
+  const [formClass, setFormClass] = useState('text');
   const suRef = db.collection('users').doc(props.selectedUser);
   const messagesRef = suRef.collection('messages');
   const [selected, loading] = useDocumentData<any>(suRef);
