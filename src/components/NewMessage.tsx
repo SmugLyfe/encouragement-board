@@ -13,6 +13,7 @@ export interface MessageType {
   id: string;
   displayName: string;
   uid: string;
+  class: string;
   photoURL: string;
   createdAt: Date;
 }
@@ -21,6 +22,7 @@ function NewMessage (props: any) {
 
   const [formValue, setFormValue] = useState('');
   const [formStyle, setFormStyle] = useState('text');
+  const [formClass, setFormClass] = useState('');
   const suRef = db.collection('users').doc(props.selectedUser);
   const messagesRef = suRef.collection('messages');
   const [selected, loading] = useDocumentData<any>(suRef);
@@ -33,7 +35,7 @@ function NewMessage (props: any) {
     const { uid, photoURL, displayName } = props.user;
     const text = {
       message: formValue,
-      style: formStyle,
+      style: formStyle
     };
 
     let msg;
@@ -42,6 +44,7 @@ function NewMessage (props: any) {
       // if a message already exists, then add more text
       await messagesRef.doc(sentMsg.id).update({
         text: firebase.firestore.FieldValue.arrayUnion(text),
+        class: formClass
       });
 
       msg = await messagesRef.doc(sentMsg.id).get();
@@ -51,6 +54,7 @@ function NewMessage (props: any) {
       await messagesRef.add({
         text: [text],
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        class: formClass,
         uid,
         displayName,
         photoURL
@@ -91,6 +95,7 @@ function NewMessage (props: any) {
   const checkMessage = (msg: any) => {
 
     const m = msg;
+    // console.log('checking message!');
 
     const setMsg = {
       uid : m?.uid,
@@ -98,9 +103,13 @@ function NewMessage (props: any) {
       photoURL: m?.photoURL,
       createdAt: m?.createdAt,
       text: m?.text,
+      class: m?.class,
       displayName: m?.displayName,
     };
     setSentMsg(setMsg);
+    setFormClass(setMsg.class);
+
+    // console.log(setMsg.class);
   }
 
   const PastMessages = () => {
@@ -126,6 +135,7 @@ function NewMessage (props: any) {
       msgs.map((msg:any) => {
         if (msg.uid == props.user.uid) {
           setSentMsg(msg);
+          setFormClass(msg?.class);
         }
       });
     }
@@ -134,7 +144,7 @@ function NewMessage (props: any) {
 
   return (
     (!loading && !msgLoading) ?
-      <div className="new-message">
+      <div className={`new-message ${formClass}`}>
         <h3>Your message to <em>{selected.name}</em></h3>
         <PastMessages />
 
@@ -145,13 +155,23 @@ function NewMessage (props: any) {
               setFormValue(e.target.value)}}
             placeholder="say something nice" />
           <div className="button-row">
-            <select value={formStyle}
+            <label htmlFor="form-style">Text Style</label>
+            <select id="form-style" value={formStyle}
               onChange={(e) => {
                 setFormStyle(e.target.value)}}>
               <option value="text">Normal</option>
               <option value="bold">Bold</option>
               <option value="italic">Italic</option>
               <option value="van">Vanessa Loud</option>
+            </select>
+            <label htmlFor="form-class">Letter Style</label>
+            <select id="form-class" value={formClass}
+              onChange={(e) => {
+                setFormClass(e.target.value)}}>
+              <option value="">Normal</option>
+              <option value="blue">Blue</option>
+              <option value="logo">Logo</option>
+              <option value="white">Sparkle</option>
             </select>
             <button className="submit" type="submit" disabled={!formValue}>Send it!</button>
           </div>

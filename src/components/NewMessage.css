@@ -120,4 +120,12 @@ select {
     top: 10vh;
     height: 72vh;
   }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  select {
+    margin-bottom: 20px;
+  }
 }

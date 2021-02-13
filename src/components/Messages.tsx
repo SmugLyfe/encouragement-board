@@ -15,7 +15,7 @@ function Messages(props: any) {
   const [index, setIndex] = useState(0);
 
   const d = new Date();
-  const releaseTime = new Date("2021-01-16T12:00:00.01");
+  const releaseTime = new Date("2021-02-14T12:00:00.01");
 
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -28,7 +28,7 @@ function Messages(props: any) {
       <div className="pre-message-modal">
         <button className="close x" onClick={props.hideMessages}>x</button>
         <h3>
-          You will receive your messages at 12pm on 2/16/2021!
+          You will receive your messages at 12pm on 2/14/2021!
         </h3>
         <b>
           In the meantime, let's write some more letters!
@@ -68,7 +68,7 @@ function Messages(props: any) {
             <div className="message-bg" ref={componentRef}>
               {letters.map((l:any, i:number) => (
                 (l.text.length !== 0) &&
-                    <div className="encouragement-letter">
+                    <div className={`encouragement-letter ${l?.class}`}>
                       {l.text.map((block: any) => (
                         <p className={block.style}>{block.message}</p>
                       ))}

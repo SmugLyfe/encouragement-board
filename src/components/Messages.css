@@ -97,3 +97,22 @@
 .encouragement-letter p {
   text-align: left;
 }
+
+.blue {
+  background-image: url('../images/all-in-encouragement-templates-01.png');
+  background-repeat: repeat;
+  background-size: 50%;
+}
+
+.white {
+  background-image: url('../images/all-in-encouragement-templates-05.png');
+  background-repeat: repeat;
+  background-size: 50%;
+}
+
+.logo {
+  background-image: url('../images/all-in-encouragement-templates-03.png');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: bottom 20px right 20px;
+}
