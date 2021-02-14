@@ -15,7 +15,7 @@ function Messages(props: any) {
   const [index, setIndex] = useState(0);
 
   const d = new Date();
-  const releaseTime = new Date("2021-02-14T12:00:00.01");
+  const releaseTime = new Date("2021-02-15T09:00:00.01");
 
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -28,7 +28,7 @@ function Messages(props: any) {
       <div className="pre-message-modal">
         <button className="close x" onClick={props.hideMessages}>x</button>
         <h3>
-          You will receive your messages at 12pm on 2/14/2021!
+          You will receive your messages at 9am on 2/15/2021!
         </h3>
         <b>
           In the meantime, let's write some more letters!
