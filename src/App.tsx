@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 // import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { db, auth } from './firebaseConfig';
+import { db, auth } from './_firebaseConfig';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
